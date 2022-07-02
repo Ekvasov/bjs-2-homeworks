@@ -9,7 +9,7 @@ function parseCount(value) {
 
 function validateCount(value) {
   try {return parseCount(value)}
-  catch(error) {return error/*Error("Невалидное значение")*/}
+  catch(error) {return error}
 }
 
 
