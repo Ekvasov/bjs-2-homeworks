@@ -28,7 +28,7 @@ const debounceDecoratorNew = (f, ms) => {
 
   return function (...args) {
     if (firstCallFlag) {
-      setTimeout(f);
+      f(...args);//
       firstCallFlag = false;
     }
     clearTimeout(timerId);
@@ -43,12 +43,11 @@ const debounceDecoratorNew = (f, ms) => {
 const debounceDecorator2 = (f, ms) => {
   firstCallFlag = true;
   let timerId;
-  f.count = 0;//
 
-  return function (...args) {
-    f.count = f.count + 1;//
+  function wrapper(...args) {
+    wrapper.count ++;
     if (firstCallFlag) {
-      setTimeout(f);
+      f(...args);
       firstCallFlag = false;
     }
     clearTimeout(timerId);
@@ -56,4 +55,7 @@ const debounceDecorator2 = (f, ms) => {
       f.apply(this, args);
     }, ms);
   }
+
+  wrapper.count = 0;
+  return wrapper;
 }
